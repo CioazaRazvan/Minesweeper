@@ -83,7 +83,7 @@
         e.preventDefault();
         switch (e.button) {
           case 2:
-            if('bomba'==newButton.id&&newButton.id!=="100"){
+            if(newButton.id!=="100"){
                 var newic = document.createElement("i");
                 newic.setAttribute("class", "bi bi-flag");
                 newButton.prepend(newic);
