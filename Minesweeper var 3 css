@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.centered-wrapper {
+    position: relative;
+    text-align: center;
+    background-color: black;
+}
+
+.e-icons{
+    color: #00ffff;
+    font-size: 26px;
+}
