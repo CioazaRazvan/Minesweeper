@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>My test page</title>
+            <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href=
+"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+ 
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href=
+"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <link href="css.css" rel="stylesheet" /> 
+    <script src="main.js"></script>
+  </head>
+  <body class="centered-wrapper" onload="createButtons()">
+    <script>
+        // in sirul strBomb pun numele butoanelor care contin bomba
+        let strBomb=[];
+        let elem=0;
+        while(elem<11){
+          let number=Math.floor(Math.random() * 82);
+          while(number==0){
+            number=Math.floor(Math.random() * 82);
+          }          
+          let aux=0;
+          if(strBomb.length>0){
+            for(let j=0;j<strBomb.length;++j){
+              if(strBomb[j]==number){
+                ++aux;
+              }
+            }
+          }
+          if(aux==0){
+            strBomb.push(number);
+            ++elem;
+          }
+        }
+
+      function createButtons(){
+        const element = document.createElement("p");
+        const element2 = document.createElement("br");
+        const element3 = document.createElement("br");
+        const element4 = document.createElement("br");
+        document.body.appendChild(element);
+        document.body.appendChild(element2);
+        document.body.appendChild(element3);
+        document.body.appendChild(element4);
+        let btn=81;
+        let strId=[];
+
+        for(let i=1;i<=btn;++i){
+        let newButton = document.createElement("button");
+        // dau id-ul si numele la fiecare buton in functie de ordinea lui
+        newButton.id=String(i);
+        newButton.name=String(i);
+
+        //newButton.innerHTML=newButton.name;
+
+        // anulez meniul pentru cick dreapta
+        window.addEventListener('contextmenu', function (e) { 
+          // do something here... 
+          e.preventDefault(); 
+        }, false);
+
+        // asta am facut doar ca sa nu se mai miste butonul atunci cand dau click dreapta pe el
+        var newIconSubscribeButton = document.createElement("i");
+        newIconSubscribeButton.setAttribute("style", "padding-right:5px;");
+        newIconSubscribeButton.setAttribute("class", "fa-sharp fa-solid fa-flag-checkered");
+        newIconSubscribeButton.style.width = '20px';
+        newIconSubscribeButton.style.height = '20px';
+        newButton.prepend(newIconSubscribeButton);
+
+        // daca butonul se afla in sirul cu id uri pt bombe, ii dau id-ul "bomba"
+        for(let k=1;k<82;++k){
+          if(newButton.id==String(strBomb[k])){
+            newButton.id='bomba';
+          }
+        }
+
+        // dau id-ul Bomba butoanelor in care se afla bomba
+        newButton.addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        switch (e.button) {
+          case 2:
+            if('bomba'==newButton.id&&newButton.id!=="100"){
+                var newic = document.createElement("i");
+                newic.setAttribute("class", "bi bi-flag");
+                newButton.prepend(newic);
+                newButton.style.background='gray';
+                newButton.id="100";
+            }
+            break;
+        }
+        });
+
+        // cand dau click pe butonul cu bomba apare Game Over  
+        newButton.addEventListener('click', () => {
+          if(newButton.id=='bomba'){
+            var newic = document.createElement("i");
+            newic.setAttribute("class", "bi bi-brightness-low-fill");
+            newButton.prepend(newic);
+            newButton.style.background='red';
+            alert("Gave Over!");
+          }
+          // daca pe primul buton nu este bomba cand dau click pe el va aparea 
+          // nr 0,1,2 sau 3, in functie de cate butoane cu bomba sunt in jurul lui
+        let btn=document.getElementByName("1");
+        let val=0;
+        let right=document.getElementByName("2");
+        let down=document.getElementByName("10");
+        let downRight=document.getElementByName("11");
+        if(btn.id!='bomba'){
+          for(let j=0;j<strBomb.length;++j){
+            if(String(strBomb[j])==right.name||String(strBomb[j])==down.name||String(strBomb[j])==downRight.name){
+              ++val;
+            }
+          }
+          btn.innerHTML=val;
+        }
+        });
+
+        strId+=newButton.id;
+        strId+=" ";
+        newButton.style.width = '60px';
+        newButton.style.height = '60px';
+        document.body.appendChild(newButton);
+          if(i%9==0){
+          let newp = document.createElement("br");
+          let newCont = document.createTextNode("");
+          newButton.appendChild(newCont);
+          let currentp = document.getElementById("br");
+          document.body.insertBefore(newp, currentp);
+          }
+        }
+
+
+      } 
+      </script>
+  </body>
+</html>
