@@ -54,6 +54,7 @@
         // dau id-ul si numele la fiecare buton in functie de ordinea lui
         newButton.id=String(i);
         newButton.name=String(i);
+        newButton.value=i;
 
         //newButton.innerHTML=newButton.name;
 
@@ -75,10 +76,11 @@
         for(let k=1;k<82;++k){
           if(newButton.id==String(strBomb[k])){
             newButton.id='bomba';
+            //newButton.innerHTML=newButton.id;
           }
         }
 
-        // dau id-ul Bomba butoanelor in care se afla bomba
+        // pun steag pe butoanele pe care dau click dreapta, daca n-a mai fost pus steag inainte
         newButton.addEventListener('mouseup', (e) => {
         e.preventDefault();
         switch (e.button) {
@@ -102,21 +104,24 @@
             newButton.prepend(newic);
             newButton.style.background='red';
             alert("Gave Over!");
-          }
+          } else if(newButton.id=="1"){
           // daca pe primul buton nu este bomba cand dau click pe el va aparea 
           // nr 0,1,2 sau 3, in functie de cate butoane cu bomba sunt in jurul lui
-        let btn=document.getElementByName("1");
-        let val=0;
-        let right=document.getElementByName("2");
-        let down=document.getElementByName("10");
-        let downRight=document.getElementByName("11");
-        if(btn.id!='bomba'){
-          for(let j=0;j<strBomb.length;++j){
-            if(String(strBomb[j])==right.name||String(strBomb[j])==down.name||String(strBomb[j])==downRight.name){
-              ++val;
-            }
+          //let btn=document.getElementsByName("1");
+          let val=0;
+          let rightBtn=document.getElementsByName("2");
+          let downBtn=document.getElementsByName("10");
+          let downRightBtn=document.getElementsByName("11");
+          if('bomba'==rightBtn.id){
+            ++val;
           }
-          btn.innerHTML=val;
+          if('bomba'==downBtn.id){
+            ++val;
+          }
+          if('bomba'==downRightBtn.id){
+            ++val;
+          }
+          newButton.innerHTML=val;
         }
         });
 
